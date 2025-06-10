@@ -1,59 +1,32 @@
-# spam-email
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+**Project Name**
 
-df=pd.read_csv('C:\\Users\Piyush Rawat\spam mail.csv')
-print(df)
+Spam Email Detection using Machine Learning
 
-data=df.where((pd.notnull(df)), ' ')
-data.head(10)
-data.info()
-data.shape
+**Overview**
 
-data.loc[data['Category'] == 'spam', 'Category',] = 1
-data.loc[data['Category'] == 'ham', 'Category',] = 0
+This project uses machine learning to detect whether an email is spam or not spam based on its content. This kind of email filtering is a common use of Natural Language Processing (NLP), which helps computers understand text.
 
-x=data['Masseges']
-y=data['Category']
-print(x)
-print(y)
+We clean and prepare the email text, turn it into numbers using a method called TF-IDF, and then train different machine learning models to see which one works best. The goal is to build a system that can automatically tell if an email is spam. This project is a great example of how to apply machine learning to real-world text data.
 
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=3)
-print(x.shape)
-print(x_train.shape)
-print(x_test.shape)
-print(y.shape)
-print(y_train.shape)
-print(y_test.shape)
+**Features**
 
-feature_extraction = TfidfVectorizer(min_df=1,stop_words='english',lowercase='True')
-fe = TfidfVectorizer()
-x_train_features = fe.fit_transform(x_train)
-x_test_features = fe.transform(x_test)
-y_train = y_train.astype('int')
-y_test = y_test.astype('int')
+Preprocessing of raw text (lowercasing, removing punctuation, stopwords, etc.)
 
-print(x_train)
-print(x_train_features)
+Feature extraction using CountVectorizer and TF-IDF
 
-model=LogisticRegression()
-model.fit(x_train_features,y_train)
-prediction_on_training_data = model.predict(x_train_features)
-accuracy_on_training_data = accuracy_score(y_train , prediction_on_training_data)
-print("Acc of training data: ",accuracy_on_training_data)
-prediction_on_test_data = model.predict(x_test_features)
-accuracy_on_test_data = accuracy_score(y_test , prediction_on_test_data)
-print("acc of testing data: ",accuracy_on_test_data)
+Training with ML classifiers (Naive Bayes, Logistic Regression, etc.)
 
-input_your_mail = ["let the music to be shown"]
-input_data_features = fe.transform(input_your_mail)
-prediction = model.predict(input_data_features)
-print(prediction)
-if prediction[0] == 1:
-    print("Ham mail")
-else:
-    print("Spam mail")
+Performance metrics (Accuracy, Precision, Recall, F1-Score, Confusion Matrix)
+
+Visualization of model performance
+
+**Dataset**
+
+Used Email Spam Datasets, which has 5,573 text messages. These messages were collected to help build and test spam detection systems.
+
+**Tech Stack**
+
+**Language:** Python 3
+
+**Libraries:** scikit-learn,pandas,numpy,matplotlib / seaborn
+
